@@ -3,6 +3,7 @@ Single line commands for a variety of shell environments.  I got tired of forget
 
 ## PowerShell
 1. List Windows Event Logs with data:  `Get-WinEvent -ListLog * | ? {$_.RecordCount -gt 0}`
+2. Display command output to console and append to file: `Get-SomeCommand | Tee-Object -FilePath "C:/Someplace/file.txt"`
 
 ## AZ CLI
 1. Log into Azure account: `az login`
