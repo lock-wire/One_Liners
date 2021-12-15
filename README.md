@@ -14,6 +14,8 @@ Single line commands for a variety of shell environments.  I got tired of forget
 3. Deallocate Azure VM: `az vm deallocate -g <Resource Group Name> -n <VM Name>`
 
 ## Bash
+1. Search Zeek json formatted for indicators:  `for i in 'cat indicators.txt'; do zgrep $i /nsm/zeek/logs/2021-12*/{log}* | jq; done;`
+
 
 ## Docker
 1. Execute command in container: `sudo docker exec <docker name> <Command Arguments>`
