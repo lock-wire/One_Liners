@@ -17,7 +17,6 @@ Single line commands for a variety of shell environments.  I got tired of forget
 5. Block(Warn) JavaScript and VBScript from launching downloaded executable content: `Add-MpPreference -AttackSurfaceReductionRules_Ids d3e037e1-3eb8-44c8-a917-57927947596d -AttackSurfaceReductionRules_Actions Warn`
 6. Block(Enabled) Office from injecting code into other processes: `Add-MpPreference -AttackSurfaceReductionRules_Ids 75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84 -AttackSurfaceReductionRules_Actions Enabled`
 
-
 ## AZ CLI
 1. Log into Azure account: `az login`
 2. Start Azure VM: `az vm start -g <Resource Group Name> -n <VM Name>`
@@ -26,7 +25,34 @@ Single line commands for a variety of shell environments.  I got tired of forget
 ## Bash
 1. Search Zeek json formatted for indicators:  `for i in 'cat indicators.txt'; do zgrep $i /nsm/zeek/logs/2021-12*/{log}* | jq; done;`
 
-
 ## Docker
 1. Execute command in container: `sudo docker exec <docker name> <Command Arguments>`
 
+## NIDS Rules
+1. alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; threshold: type threshold, track by_src, count; 5, seconds 30; dsize:<=1024; classtype:bad-unknown; sid:1319973; rev:1;)
+2. alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; flow:established,to_server; http.content_len; byte_test:0,>=,100000,0,string,dec; classtype:bad-unknown; sid:1319973; rev:1;)
+
+## Sigma Rule
+title: 'DNS Query Greater than 55 characters'
+id: 24aa2610-c284-470b-b1c6-5dc64951527c
+status: 'experimental'
+description: "Identifies DNS queries that are near the 63 character field limit. This could be an indication of data exfiltration."
+references:
+  - 'https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1071.004/T1071.004.md#atomic-test-3---dns-long-domain-query'
+author: '@SecurityOnion'
+date: '2024/10/16'
+tags:
+  - detection.threat_hunting
+  - attack.exfiltration
+  - attack.T1071.004
+logsource:
+  category: zeek
+  product: dns
+detection:
+    selection:
+        - query|gt: 55
+    condition: selection
+level: 'medium'
+
+    filter:
+      query|contains: malware.hash.cymru.
