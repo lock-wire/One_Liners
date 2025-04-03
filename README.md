@@ -29,10 +29,11 @@ Single line commands for a variety of shell environments.  I got tired of forget
 1. Execute command in container: `sudo docker exec <docker name> <Command Arguments>`
 
 ## NIDS Rules
-1. alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; threshold: type threshold, track by_src, count; 5, seconds 30; dsize:<=1024; classtype:bad-unknown; sid:1319973; rev:1;)
-2. alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; flow:established,to_server; http.content_len; byte_test:0,>=,100000,0,string,dec; classtype:bad-unknown; sid:1319973; rev:1;)
+1. `alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; threshold: type threshold, track by_src, count; 5, seconds 30; dsize:<=1024; classtype:bad-unknown; sid:1319973; rev:1;)`
+2. `alert http $HOME_NET any -> $EXTERNAL_NET any (msg:"T1030 - Network Based Data Transfer in Small Chunks"; flow:established,to_server; http.content_len; byte_test:0,>=,100000,0,string,dec; classtype:bad-unknown; sid:1319973; rev:1;)`
 
 ## Sigma Rule
+```
 title: 'DNS Query Greater than 55 characters'
 id: 24aa2610-c284-470b-b1c6-5dc64951527c
 status: 'experimental'
@@ -53,6 +54,6 @@ detection:
         - query|gt: 55
     condition: selection
 level: 'medium'
-
     filter:
       query|contains: malware.hash.cymru.
+```
