@@ -27,13 +27,13 @@ Single line commands for a variety of shell environments.  I got tired of forget
 2. Mount VMWare Host share folder to quest: `sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other`
 3. Convert PNG to PDF with ImageMagick for files sorted by number: `convert $(ls |sort -n) -quality 150 outfile.pdf`
 4. Export/Import KVM/QEMU VM for manual movement
-   copy the VM's disks from `/var/lib/libvirt/images` on src host to the same dir on destination host
-   on the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
-   on the destination host run `virsh define domxml.xmlstart` the VM.
-5. Export/Import KVM/QEMU network configurations
-   On source machine `virsh net-dumpxml NETNAME > netxml.xml`
-   copy netxml.xml to target machine
-   On target machine `virsh net-define netxml.xml && virsh net-start NETNAME & virsh net-autostart (NETNAME)`
+   - Copy the VM's disks from `/var/lib/libvirt/images` on src host to the same dir on destination host
+   - On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
+   - On the destination host run `virsh define domxml.xmlstart` the VM.
+6. Export/Import KVM/QEMU network configurations
+   - On source machine `virsh net-dumpxml NETNAME > netxml.xml`
+   - Copy netxml.xml to target machine
+   - On target machine `virsh net-define netxml.xml && virsh net-start NETNAME & virsh net-autostart (NETNAME)`
 
 ## Docker
 1. Execute command in container: `sudo docker exec <docker name> <Command Arguments>`
