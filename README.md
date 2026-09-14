@@ -26,7 +26,8 @@ Single line commands for a variety of shell environments.  I got tired of forget
 1. Search Zeek json formatted for indicators:  `for i in 'cat indicators.txt'; do zgrep $i /nsm/zeek/logs/2021-12*/{log}* | jq; done;`
 2. Mount VMWare Host share folder to quest: `sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other`
 3. Convert PNG to PDF with ImageMagick for files sorted by number: `convert $(ls |sort -n) -quality 150 outfile.pdf`
-4. Export/Import KVM/QEMU VM for manual movement
+4. Reduce size of PDF with GhostScript: `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf`
+5. Export/Import KVM/QEMU VM for manual movement
    - Copy the VM's disks from `/var/lib/libvirt/images` on src host to the same dir on destination host
    - On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
    - On the destination host run `virsh define domxml.xmlstart` the VM.
