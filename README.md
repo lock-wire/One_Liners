@@ -27,11 +27,16 @@ Single line commands for a variety of shell environments.  I got tired of forget
 2. Mount VMWare Host share folder to quest: `sudo /usr/bin/vmhgfs-fuse .host:/ /mnt/hgfs -o subtype=vmhgfs-fuse,allow_other`
 3. Convert PNG to PDF with ImageMagick for files sorted by number: `convert $(ls |sort -n) -quality 150 outfile.pdf`
 4. Reduce size of PDF with GhostScript: `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf`
-5. Export/Import KVM/QEMU VM for manual movement
+   - `/screen`: Lowest quality and smallest file size (approx. 72 dpi), best for online viewing.
+   - `/ebook`: Medium quality and balanced file size (approx. 150 dpi), good for digital reading.
+   - `/printer`: High quality (approx. 300 dpi), optimized for desktop printing.
+   - `/prepress`: Highest quality and largest file size (approx. 300+ dpi with color preservation), intended for professional printing presses.
+   - `/default`: Standard output intended to be useful across a wide variety of applications.
+6. Export/Import KVM/QEMU VM for manual movement
    - Copy the VM's disks from `/var/lib/libvirt/images` on src host to the same dir on destination host
    - On the source host run `virsh dumpxml VMNAME > domxml.xml` and copy this xml to the destination host
    - On the destination host run `virsh define domxml.xmlstart` the VM.
-6. Export/Import KVM/QEMU network configurations
+7. Export/Import KVM/QEMU network configurations
    - On source machine `virsh net-dumpxml NETNAME > netxml.xml`
    - Copy netxml.xml to target machine
    - On target machine `virsh net-define netxml.xml && virsh net-start NETNAME & virsh net-autostart (NETNAME)`
